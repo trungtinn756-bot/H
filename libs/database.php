@@ -1,36 +1,21 @@
 <?php
-require_once 'config.php';
+require_once 'database.php';
 
-class Database
+function pdo_execute($sql, ...$args)
 {
-    private static $db;
+    try {
+        $db = Database::connect();
+        $stmt = $db->prepare($sql);
 
-    public static function connect()
-    {
-        if (!isset(self::$db)) {
-            $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
-
-            $options = array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                // Bật lại chế độ emulate prepares để xử lý đúng tham số số nguyên cho LIMIT
-                PDO::ATTR_EMULATE_PREPARES => true,
-                PDO::MYSQL_ATTR_SSL_CA => true,
-                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-            );
-
-            try {
-                self::$db = new PDO($dsn, DB_USER, DB_PASS, $options);
-                self::$db->exec("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
-            } catch (PDOException $e) {
-                die("Connection failed: " . $e->getMessage());
-            }
+        // Bind từng tham số theo đúng kiểu dữ liệu thực tế
+        foreach ($args as $index => $value) {
+            $paramType = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt->bindValue($index + 1, $value, $paramType);
         }
-        return self::$db;
-    }
 
-    public static function disconnect()
-    {
-        self::$db = null;
+        $stmt->execute();
+        return $stmt;
+    } catch (PDOException $e) {
+        die("Error executing query: " . $e->getMessage());
     }
 }
