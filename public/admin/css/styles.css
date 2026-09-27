@@ -1,0 +1,1146 @@
+/* ==========================================================================
+   ADMIN PANEL PURE CSS (SOLO/OFFLINE COMPATIBLE)
+   ========================================================================== */
+
+/* Core & Base Layout */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+}
+
+.admin-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: #0b0f19;
+  color: #f3f4f6;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+@media (min-width: 768px) {
+  .admin-body {
+    flex-direction: row;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Scrollbar Utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Sidebar Left Navigation */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  width: 16rem;
+  background-color: #000000;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #111827;
+  padding: 1.5rem 0.75rem;
+  height: 100vh;
+  transition: transform 0.3s ease-in-out;
+}
+.admin-sidebar.sidebar-closed {
+  transform: translateX(-100%);
+}
+@media (min-width: 768px) {
+  .admin-sidebar {
+    position: relative;
+    transform: translateX(0) !important;
+  }
+}
+
+.admin-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+}
+
+.admin-logo-img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+.admin-logo-box:hover .admin-logo-img {
+  transform: scale(1.05);
+}
+
+.admin-brand-title {
+  background: linear-gradient(to right, #a78bfa, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+}
+
+.admin-brand-sub {
+  color: #22d3ee;
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  opacity: 0.9;
+}
+
+.admin-brand-desc {
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(99, 102, 241, 0.7);
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Nav Menu Links */
+.admin-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  padding-top: 0.5rem;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  color: #9ca3af;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.admin-nav-link:hover {
+  background-color: rgba(31, 41, 55, 0.6);
+  color: #22d3ee;
+}
+.admin-nav-link.active {
+  background-color: #111827;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.admin-nav-icon {
+  width: 1.25rem;
+  text-align: center;
+}
+.admin-nav-link.active .admin-nav-icon {
+  color: #818cf8;
+}
+
+/* Mobile Overlay Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+  transition: opacity 0.3s;
+}
+
+/* Main Content Wrapper */
+.admin-main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Top Header Bar */
+.admin-top-header {
+  height: 4rem;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 10;
+  user-select: none;
+  color: #374151;
+}
+
+.btn-sidebar-toggle {
+  color: #9ca3af;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.btn-sidebar-toggle:hover {
+  color: #4f46e5;
+}
+@media (min-width: 768px) {
+  .btn-sidebar-toggle {
+    display: none;
+  }
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Light Theme Notifications Menu */
+.btn-noti-light {
+  position: relative;
+  padding: 0.5rem;
+  color: #6b7280;
+  border-radius: 9999px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  cursor: pointer;
+}
+.btn-noti-light:hover {
+  color: #4f46e5;
+  background-color: #f3f4f6;
+}
+
+.admin-noti-badge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  min-width: 1.125rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.admin-noti-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 20rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  overflow: hidden;
+  transform-origin: top right;
+}
+
+.admin-noti-header {
+  padding: 0.625rem 1rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-noti-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+.admin-noti-item:hover {
+  background-color: #f9fafb;
+}
+.admin-noti-item.unread {
+  background-color: rgba(238, 242, 255, 0.4);
+  font-weight: 500;
+}
+
+/* Admin User Dropdown */
+.btn-admin-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.admin-avatar-thumb {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: 1px solid #e0e7ff;
+  object-fit: cover;
+}
+
+.admin-user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  transition: color 0.2s;
+  display: none;
+}
+@media (min-width: 640px) {
+  .admin-user-name {
+    display: inline;
+  }
+}
+.btn-admin-user:hover .admin-user-name {
+  color: #4f46e5;
+}
+
+.admin-user-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 11rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 0.375rem 0;
+  z-index: 50;
+}
+
+.admin-user-dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.admin-user-dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: #4f46e5;
+}
+.admin-user-dropdown-item.text-red {
+  color: #dc2626;
+}
+.admin-user-dropdown-item.text-red:hover {
+  background-color: #fef2f2;
+}
+
+/* Main Content Body Area */
+.admin-content-body {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  color: #111827;
+}
+/* ==========================================================================
+   11. ADMIN USER MANAGEMENT TABLES & FORMS (PURE CSS)
+   ========================================================================== */
+
+/* Page Header Title */
+.admin-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Card Section Container */
+.admin-card-section {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+/* Filter Bar Container */
+.admin-filter-bar {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 1280px) {
+  .admin-filter-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.admin-filter-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .admin-filter-left {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.admin-search-input-box {
+  display: flex;
+  align-items: center;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+@media (min-width: 768px) {
+  .admin-search-input-box {
+    width: 20rem;
+  }
+}
+.admin-search-input-box:focus-within {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 1px #0284c7;
+}
+
+.admin-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.admin-filter-select {
+  padding: 0.5rem 0.75rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  width: 100%;
+  min-width: 140px;
+}
+@media (min-width: 640px) {
+  .admin-filter-select {
+    width: auto;
+  }
+}
+.admin-filter-select:focus {
+  border-color: #0284c7;
+}
+
+.btn-filter-submit {
+  background-color: #0284c7;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+.btn-filter-submit:hover {
+  background-color: #0369a1;
+}
+
+.admin-filter-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+}
+@media (min-width: 1280px) {
+  .admin-filter-right {
+    width: auto;
+    padding-top: 0;
+    border-top: none;
+    justify-content: flex-start;
+  }
+}
+
+/* Data Table Styles */
+.admin-table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.admin-data-table {
+  width: 100%;
+  white-space: nowrap;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.admin-data-table thead {
+  background-color: #38bdf8;
+  color: #ffffff;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.admin-data-table th {
+  padding: 1rem 1.5rem;
+}
+
+.admin-data-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+}
+
+.admin-table-row:hover {
+  background-color: rgba(240, 249, 255, 0.4);
+}
+
+.user-avatar-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-table-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid #e0f2fe;
+  object-fit: cover;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Status Badges */
+.badge-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-status-pill.active {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+.badge-status-pill.inactive {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.status-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+}
+.badge-status-pill.active .status-dot {
+  background-color: #22c55e;
+}
+.badge-status-pill.inactive .status-dot {
+  background-color: #ef4444;
+}
+
+/* Pagination Controls Footer */
+.admin-table-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.page-link-admin {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4b5563;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.page-link-admin:hover:not(.disabled) {
+  background-color: #f9fafb;
+}
+.page-link-admin.active {
+  background-color: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.page-link-admin.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* ==========================================================================
+   12. ADMIN COMICS MANAGEMENT FORM & LIST STYLES (PURE CSS)
+   ========================================================================== */
+
+/* Layout Form 2 Cột */
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .admin-form-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .admin-form-main-col {
+    grid-column: span 2 / span 2;
+  }
+}
+
+/* Card Block Header */
+.form-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 0.5rem;
+}
+
+/* Form Standard Inputs & Textarea */
+.form-control-std {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  color: #111827;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+.form-control-std:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.btn-form-cancel {
+  padding: 0.625rem 1.25rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+.btn-form-cancel:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-form-submit {
+  padding: 0.625rem 1.25rem;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.btn-form-submit:hover {
+  background-color: #4338ca;
+}
+
+/* Drag & Drop Thumbnail Zone */
+.dropzone-box {
+  border: 2px dashed #d1d5db;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  min-height: 220px;
+}
+.dropzone-box:hover {
+  border-color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+/* Cover Wrapper for Edit Form */
+.cover-preview-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.cover-overlay-hover {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cover-preview-wrapper:hover .cover-overlay-hover {
+  opacity: 1;
+}
+
+/* Genre Selector Container */
+.genre-scroll-selector {
+  max-height: 18rem;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+}
+
+.genre-checkbox-card {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.genre-checkbox-card:hover {
+  border-color: #a5b4fc;
+  background-color: rgba(238, 242, 255, 0.3);
+}
+
+/* Custom Status Select in Table */
+.status-pill-select {
+  width: 100%;
+  padding: 0.25rem 2rem 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Table Actions Icons */
+.btn-action-icon {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.btn-action-icon.green {
+  color: #059669;
+  background-color: #ecfdf5;
+}
+.btn-action-icon.green:hover {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.btn-action-icon.indigo {
+  color: #4f46e5;
+  background-color: #eef2ff;
+}
+.btn-action-icon.indigo:hover {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.btn-action-icon.red {
+  color: #ef4444;
+  background-color: #fef2f2;
+}
+.btn-action-icon.red:hover {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+/* ==========================================================================
+   13. ADMIN CHAPTER MANAGEMENT FORM & LIST STYLES (PURE CSS)
+   ========================================================================== */
+
+/* Preview List Container cho Upload Ảnh Chương */
+.chapter-preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 24rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.preview-row-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  cursor: grab;
+}
+.preview-row-card:active {
+  cursor: grabbing;
+}
+.preview-row-card:hover {
+  background-color: #f3f4f6;
+}
+
+.preview-row-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+  width: 100%;
+  margin-right: 0.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.preview-thumb-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #e5e7eb;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid #f3f4f6;
+}
+
+.preview-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Grid Lưới Hiển Thị Ảnh Chương Hiện Tại */
+.chapter-current-images-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+@media (min-width: 640px) {
+  .chapter-current-images-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+  .chapter-current-images-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.current-image-card {
+  position: relative;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  background-color: #ffffff;
+  padding: 0.25rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-order-number {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  font-size: 10px;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  z-index: 10;
+}
+/* ==========================================================================
+   14. BANNER MANAGEMENT SPECIFIC ENHANCEMENTS
+   ========================================================================== */
+
+/* Banner Card Form Layout */
+.banner-form-card {
+  background-color: #111827;
+  border: 1px solid rgba(31, 41, 55, 0.8);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Dropzone Upload Banner */
+.banner-dropzone {
+  width: 100%;
+  min-height: 11rem;
+  border: 2px dashed rgba(55, 65, 81, 0.8);
+  border-radius: 0.875rem;
+  background-color: rgba(17, 24, 39, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 1.5rem;
+  text-align: center;
+}
+.banner-dropzone:hover {
+  border-color: #06b6d4;
+  background-color: rgba(6, 182, 212, 0.05);
+}
+
+.banner-preview-box {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  background-color: #0d111a;
+  border: 1px solid #1f2937;
+  display: inline-block;
+}
+
+.banner-preview-img {
+  max-height: 12rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* Radio Choice Badge */
+.radio-choice-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  cursor: pointer;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  background-color: #161f30;
+  border: 1px solid #1f2937;
+  transition: all 0.2s;
+}
+.radio-choice-label:hover {
+  border-color: rgba(6, 182, 212, 0.5);
+  color: #22d3ee;
+}
+/* ==========================================================================
+   15. ADMIN DASHBOARD & STATS SPECIFIC ENHANCEMENTS
+   ========================================================================== */
+
+/* Stat Card Gradient Widgets */
+.stat-card-widget {
+  border-radius: 0.875rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  color: #ffffff;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stat-card-widget:hover {
+  transform: translateY(-0.25rem);
+}
+
+.stat-card-widget.blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+}
+.stat-card-widget.emerald {
+  background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+}
+.stat-card-widget.rose {
+  background: linear-gradient(135deg, #f43f5e 0%, #db2777 100%);
+}
+
+.stat-icon-badge {
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Progress Track Bar */
+.progress-track-bg {
+  width: 100%;
+  background-color: #f3f4f6;
+  height: 0.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-track-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease-in-out;
+}
+.progress-track-fill.emerald {
+  background-color: #10b981;
+}
+.progress-track-fill.rose {
+  background-color: #f43f5e;
+}
+/* Grid 3 cột cho hàng thẻ thống kê Dashboard */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .stat-cards-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Thẻ Stat Card Gradient */
+.stat-card-widget {
+  border-radius: 0.875rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  color: #ffffff;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.stat-card-widget:hover {
+  transform: translateY(-0.25rem);
+}
+
+.stat-card-widget.blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+}
+.stat-card-widget.emerald {
+  background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+}
+.stat-card-widget.rose {
+  background: linear-gradient(135deg, #f43f5e 0%, #db2777 100%);
+}
+
+.stat-icon-badge {
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Progress Track Bar */
+.progress-track-bg {
+  width: 100%;
+  background-color: #f3f4f6;
+  height: 0.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-track-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease-in-out;
+}
+.progress-track-fill.emerald {
+  background-color: #10b981;
+}
+.progress-track-fill.rose {
+  background-color: #f43f5e;
+}
