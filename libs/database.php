@@ -8,15 +8,14 @@ class Database
     public static function connect()
     {
         if (!isset(self::$db)) {
-            // Thêm cổng port=4000 vào chuỗi DSN
             $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
 
             $options = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
-                // Bắt buộc bật SSL cho kết nối TiDB Cloud
+                // Tắt ONLY_FULL_GROUP_BY ngay trong lệnh khởi tạo
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4, sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))",
                 PDO::MYSQL_ATTR_SSL_CA => true,
                 PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
             );
